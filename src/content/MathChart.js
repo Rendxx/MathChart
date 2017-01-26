@@ -37,34 +37,18 @@ var Chart = React.createClass({
       , h = this.state.height
       , interval = this.state.intervalPixel
       , num = this.state.intervalNumber
+      , start = this.state.start
       , ori = this._getCoordinate([0,0])
+      , outer = 4
       ;
 
     // draw scene ------------------------------------
     ctx.clearRect(0, 0, w, h);
-    ctx.fillStyle="#eeeeee";
-    ctx.fillRect(this.state.textSpace,0,w,h-this.state.textSpace);
+    ctx.fillStyle="#ffffff";
+    ctx.fillRect(this.state.textSpace,outer,w-this.state.textSpace-outer,h-this.state.textSpace-outer);
 
-    // draw line ------------------------------------
-    ctx.beginPath();
     ctx.lineWidth=1;
-    // x coordinate
-    ctx.beginPath();
-    let tmp = ori[0]+interval.x+0.5;
-    while (tmp<w){
-      ctx.moveTo(tmp,ori[1]);
-      ctx.lineTo(tmp,ori[1]-4);
-      tmp+=interval.x;
-    }
-    // y coordinate
-    tmp = ori[1]-interval.y+0.5;
-    while (tmp>0){
-      ctx.moveTo(ori[0],tmp);
-      ctx.lineTo(ori[0]+4,tmp);
-      tmp-=interval.y;
-    }
-    ctx.strokeStyle="#111111";
-    ctx.stroke();
+    let tmp=0;
 
     // draw grid ------------------------------------
     ctx.beginPath();
@@ -83,36 +67,58 @@ var Chart = React.createClass({
       ctx.lineTo(w,tmp);
       tmp-=interval.y;
     }
-    ctx.strokeStyle="#dddddd";
+    ctx.strokeStyle="#f2f2f2";
     ctx.stroke();
     ctx.setLineDash([0, 0]);
 
     // draw border ------------------------------------------
     ctx.beginPath();
-    ctx.moveTo(ori[0]+0.5,ori[1]+0.5);
-    ctx.lineTo(ori[0]+0.5,0+0.5);
-    ctx.moveTo(ori[0]+0.5,ori[1]+0.5);
+    // x
+    ctx.moveTo(ori[0]+0.5-outer,ori[1]+0.5);
     ctx.lineTo(w+0.5,ori[1]+0.5);
+    // y
+    ctx.moveTo(ori[0]+0.5,ori[1]+0.5+outer);
+    ctx.lineTo(ori[0]+0.5,0+0.5);
+
+    ctx.strokeStyle="#999999";
+    ctx.stroke();
+
+    // draw unit ------------------------------------
+    // x coordinate
+    ctx.beginPath();
+    tmp = ori[0]+interval.x+0.5;
+    while (tmp<w){
+      ctx.moveTo(tmp,ori[1]);
+      ctx.lineTo(tmp,ori[1]-4);
+      tmp+=interval.x;
+    }
+    // y coordinate
+    tmp = ori[1]-interval.y+0.5;
+    while (tmp>0){
+      ctx.moveTo(ori[0],tmp);
+      ctx.lineTo(ori[0]+4,tmp);
+      tmp-=interval.y;
+    }
     ctx.strokeStyle="#999999";
     ctx.stroke();
 
     // draw space ------------------------------------------
-    ctx.lineWidth=2;
-    ctx.beginPath();
-    ctx.setLineDash([0, 0]);
-    ctx.moveTo(ori[0]+2,ori[1]+1);
-    ctx.lineTo(ori[0]+2,0);
-    ctx.moveTo(ori[0]-1,ori[1]-1);
-    ctx.lineTo(w,ori[1]-1);
-    ctx.strokeStyle="#ffffff";
-    ctx.stroke();
+    // ctx.lineWidth=2;
+    // ctx.beginPath();
+    // ctx.setLineDash([0, 0]);
+    // ctx.moveTo(ori[0]+2,ori[1]+1);
+    // ctx.lineTo(ori[0]+2,0);
+    // ctx.moveTo(ori[0]-1,ori[1]-1);
+    // ctx.lineTo(w,ori[1]-1);
+    // ctx.strokeStyle="#cccccc";
+    // ctx.stroke();
 
     // draw text ----------------------------------------
     // x text
     tmp = ori[0]+interval.x;
     let n = num.x;
     while (tmp<w){
-      this._drawText_x(n, [tmp,ori[1]]);
+      this._drawText_x(start.x+n, [tmp,ori[1]]);
       tmp+=interval.x;
       n+=num.x;
     }
@@ -120,7 +126,7 @@ var Chart = React.createClass({
     tmp = ori[1]-interval.y;
     n = num.y;
     while (tmp>0){
-      this._drawText_y(n, [ori[0],tmp]);
+      this._drawText_y(start.y+n, [ori[0],tmp]);
       tmp-=interval.y;
       n+=num.y;
     }
@@ -132,15 +138,15 @@ var Chart = React.createClass({
     let ctx = this.state.ctx
       ;
     ctx.font = "14px Arial";
-    ctx.fillStyle = "#333333";
+    ctx.fillStyle = "#666666";
     ctx.textAlign = "center";
-    ctx.fillText(text, pos[0], pos[1]+17);
+    ctx.fillText(text, pos[0], pos[1]+20);
   },
   _drawText_y: function (text, pos){
     let ctx = this.state.ctx
       ;
     ctx.font = "14px Arial";
-    ctx.fillStyle = "#333333";
+    ctx.fillStyle = "#666666";
     ctx.textAlign = "right";
     ctx.fillText(text, pos[0]-10, pos[1]+7);
   },
@@ -153,6 +159,7 @@ var Chart = React.createClass({
       height: 600,
       intervalPixel: {x:40, y:30},
       intervalNumber: {x:1, y:1},
+      start: {x:0, y:0},
       textSpace: 40
     };
   },
