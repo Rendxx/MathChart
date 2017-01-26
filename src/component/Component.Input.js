@@ -20,11 +20,11 @@ var Input = React.createClass({
       });
 
       if (this.state.expanded){
-          window.addEventListener('click', this._hideFunction.bind(this), true);
+          window.addEventListener('mousedown', this._hideFunction.bind(this), true);
           this.refs.input.focus();
           this.setState({textBackup:this.refs.input.value});
       }else{
-          window.removeEventListener('click', this._hideFunction.bind(this), true);
+          window.removeEventListener('mousedown', this._hideFunction.bind(this), true);
           this.refs.input.blur();
           if (this.state.changed){
               if (this.props.valueCheck) this.refs.input.value = this.props.valueCheck(this.refs.input.value);
@@ -65,7 +65,7 @@ var Input = React.createClass({
     };
   },
   componentDidMount:function(){
-      this.refs.container.addEventListener('click', function (e) {
+      this.refs.container.addEventListener('mousedown', function (e) {
           if (!this.state.enabled||this.state.expanded) return;
           this.expand(true);
       }.bind(this));

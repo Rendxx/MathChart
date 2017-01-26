@@ -10,11 +10,14 @@ var Panel = React.createClass({
 
   /* Private Method *********************************************************************/
   _setChartPara : function (){
-      var minX=this.refs.minX.value();
-      var maxX=this.refs.maxX.value();
-      var minY=this.refs.minY.value();
-      var maxY=this.refs.maxY.value();
-      alert(minX+", "+maxX+", "+minY+", "+maxY);
+      var xStart=this.refs.xStart.value();
+      var yStart=this.refs.yStart.value();
+      var xInterval=this.refs.xInterval.value();
+      var yInterval=this.refs.yInterval.value();
+      this.refs.chart.setOption({
+        intervalNumber: {x:Number(xInterval), y:Number(yInterval)},
+        start: {x:Number(xStart), y:Number(yStart)}
+      });
   },
   _checkCorValue: function (v){
       return parseFloat(v)||0;
@@ -31,13 +34,14 @@ var Panel = React.createClass({
     return(
       <div className="__panelWrap" ref="self">
           <div className="__panelLeft" ref="left" style={{"width":this.state.left+"px"}}>
-              <Component_Input ref="minX" tag="Min X" left={80} width={260} value="0" customClassName="inputItem" color="#333" valueCheck={this._checkCorValue} onChanged={this._setChartPara.bind(this)}/>
-              <Component_Input ref="maxX" tag="Max X" left={80} width={260} value="10" customClassName="inputItem" color="#333" valueCheck={this._checkCorValue} onChanged={this._setChartPara.bind(this)}/>
-              <Component_Input ref="minY" tag="Min Y" left={80} width={260} value="0" customClassName="inputItem" color="#333" valueCheck={this._checkCorValue} onChanged={this._setChartPara.bind(this)}/>
-              <Component_Input ref="maxY" tag="Max Y" left={80} width={260} value="10" customClassName="inputItem" color="#333" valueCheck={this._checkCorValue} onChanged={this._setChartPara.bind(this)}/>
+              <Component_Input ref="xStart" tag="X Start" left={80} width={260} value="0" customClassName="inputItem" color="#333" valueCheck={this._checkCorValue} onChanged={this._setChartPara.bind(this)}/>
+              <Component_Input ref="xInterval" tag="X Interval" left={80} width={260} value="1" customClassName="inputItem" color="#333" valueCheck={this._checkCorValue} onChanged={this._setChartPara.bind(this)}/>
+              <br/>
+              <Component_Input ref="yStart" tag="Y Start" left={80} width={260} value="0" customClassName="inputItem" color="#333" valueCheck={this._checkCorValue} onChanged={this._setChartPara.bind(this)}/>
+              <Component_Input ref="yInterval" tag="Y Interval" left={80} width={260} value="1" customClassName="inputItem" color="#333" valueCheck={this._checkCorValue} onChanged={this._setChartPara.bind(this)}/>
           </div>
           <div className="__panelRight" ref="right" style={{"margin-left":this.state.left+"px"}}>
-            <MathChart/>
+              <MathChart ref="chart" />
           </div>
       </div>
     );

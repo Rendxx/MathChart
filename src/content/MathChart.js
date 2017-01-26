@@ -4,18 +4,23 @@ var classNames = require('classnames');
 
 var Chart = React.createClass({
   /* Public Method *********************************************************************/
-  setOption:function({intervalPixel={}, intervalNumber={}}){
+  setOption:function({intervalPixel={}, intervalNumber={}, start={}}){
     let _intervalPixel = {
       x:intervalPixel.x || this.state.intervalPixel.x,
       y:intervalPixel.y || this.state.intervalPixel.y
-    }
+    };
     let _intervalNumber = {
       x:intervalNumber.x || this.state.intervalNumber.x,
       y:intervalNumber.y || this.state.intervalNumber.y
-    }
+    };
+    let _start = {
+      x:start.x || this.state.start.x,
+      y:start.y || this.state.start.y
+    };
     this.setState({
       intervalPixel: _intervalPixel,
-      intervalNumber: _intervalNumber
+      intervalNumber: _intervalNumber,
+      start: _start
     });
   },
   resize:function(w, h){
