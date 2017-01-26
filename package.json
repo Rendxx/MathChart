@@ -1,0 +1,44 @@
+{
+  "name": "soccer-board",
+  "version": "0.0.0",
+  "private": true,
+  "license": "see LICENSE file",
+  "description": "Soccer board.",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.4.3",
+    "express": "^4.4.5"
+  },
+  "devDependencies": {
+    "babel-core": "*",
+    "babel-loader": "*",
+    "babel-preset-react": "*",
+    "css-loader": "*",
+    "extract-text-webpack-plugin": "*",
+    "jsx-loader": "*",
+    "less": "*",
+    "less-loader": "*",
+    "react": "^15.3.2",
+    "react-dom": "*",
+    "style-loader": "*",
+    "url-loader": "*",
+    "file-loader": "*",
+    "webpack": "^1.13.2",
+    "classnames": "*"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Rendxx/SoccerBoard.git"
+  },
+  "keywords": [
+    "soccer"
+  ],
+  "author": "rendxx",
+  "engines": {
+    "node": "0.12.x"
+  }
+}

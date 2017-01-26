@@ -1,0 +1,20 @@
+{
+  "name": "SoccerBoard",
+  "version": "0.0.0",
+  "homepage": "https://github.com/Rendxx/SoccerBoard",
+  "authors": [
+    "Rendxx <rendxx@gmail.com>"
+  ],
+  "description": "Soccer board",
+  "dependencies": {
+    "drawing" :"*"
+  },
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
