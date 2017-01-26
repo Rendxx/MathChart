@@ -1,0 +1,136 @@
+.__componet_input {
+    position: relative;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    margin: 0;
+    border: 0;
+    overflow: visible;
+    font-size: 14px;
+    line-height: 20px;
+    height: 40px;
+    pointer-events: none;
+    cursor: default !important;
+    color: #666;
+
+    .__componet_input_bg {
+        border-radius: 3px;
+        box-sizing: border-box;
+        padding: 10px;
+        background-color: #fff;
+        opacity: 0.75;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        transition-duration: 0.1s;
+        transition-property: padding, margin, opacity, box-shadow;
+        z-index:1;
+    }
+
+    .__componet_input_inner {
+        position: absolute;
+        top:10px;
+        left:10px;
+        bottom:10px;
+        right:10px;
+        box-sizing: border-box;
+        opacity: 0.75;
+        z-index:10;
+
+        .__componet_input_tag {
+            position: absolute;
+            top: 0;
+            left: -10px;
+            width: auto;
+            height: 100%;
+            z-index: 10;
+            text-align: right;
+            padding-right: 10px;
+            box-sizing: border-box;
+            border-right: 1px solid #ccc;
+            opacity: 0.5;
+        }
+
+        .__componet_input_content {
+            text-align: left;
+            position: relative;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+            border: 0;
+            z-index: 1;
+            overflow: hidden;
+        }
+    }
+
+    &.__visible {
+        display: block;
+
+        &.__enabled {
+            pointer-events: auto;
+            .__componet_input_inner{
+                opacity: 1;
+            }
+
+            .__componet_input_bg {
+                opacity: 0.9;
+            }
+
+            &:hover {
+                .__componet_input_bg {
+                    background-color: #fff;
+                    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+                    opacity: 1;
+                }
+            }
+
+            &.__expanded {
+                z-index: 1000;
+                .__componet_input_bg {
+                    padding:12px;
+                    margin: -2px;
+                    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    input {
+        border: 0 !important;
+        background-color: transparent !important;
+        color:inherit !important;
+        cursor: default !important;
+        font-size: inherit !important;
+        font-family: inherit !important;
+        line-height: inherit !important;
+
+        &:focus {
+            outline: none !important;
+
+            &::-webkit-input-placeholder {
+                color: #aaa;
+            }
+
+            &:-moz-placeholder {
+                /* Firefox 18- */
+                color: #aaa;
+            }
+
+            &::-moz-placeholder {
+                /* Firefox 19+ */
+                color: #aaa;
+            }
+
+            &:-ms-input-placeholder {
+                color: #aaa;
+            }
+        }
+    }
+}

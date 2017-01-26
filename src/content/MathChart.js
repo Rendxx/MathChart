@@ -40,11 +40,14 @@ var Chart = React.createClass({
       , start = this.state.start
       , ori = this._getCoordinate([0,0])
       , outer = 4
+      , borderColor = '#6699dd'
+      , bgColor = '#F1F6Fb'
+      , gridColor = '#ffffff'
       ;
 
     // draw scene ------------------------------------
     ctx.clearRect(0, 0, w, h);
-    ctx.fillStyle="#ffffff";
+    ctx.fillStyle=bgColor;
     ctx.fillRect(this.state.textSpace,outer,w-this.state.textSpace-outer,h-this.state.textSpace-outer);
 
     ctx.lineWidth=1;
@@ -52,7 +55,7 @@ var Chart = React.createClass({
 
     // draw grid ------------------------------------
     ctx.beginPath();
-    ctx.setLineDash([5, 3]);
+    //ctx.setLineDash([5, 3]);
     // x grid
     tmp = ori[0]+interval.x+0.5;
     while (tmp<w){
@@ -67,7 +70,7 @@ var Chart = React.createClass({
       ctx.lineTo(w,tmp);
       tmp-=interval.y;
     }
-    ctx.strokeStyle="#f2f2f2";
+    ctx.strokeStyle=gridColor;
     ctx.stroke();
     ctx.setLineDash([0, 0]);
 
@@ -80,7 +83,7 @@ var Chart = React.createClass({
     ctx.moveTo(ori[0]+0.5,ori[1]+0.5+outer);
     ctx.lineTo(ori[0]+0.5,0+0.5);
 
-    ctx.strokeStyle="#999999";
+    ctx.strokeStyle=borderColor;
     ctx.stroke();
 
     // draw unit ------------------------------------
@@ -99,7 +102,7 @@ var Chart = React.createClass({
       ctx.lineTo(ori[0]+4,tmp);
       tmp-=interval.y;
     }
-    ctx.strokeStyle="#999999";
+    ctx.strokeStyle=borderColor;
     ctx.stroke();
 
     // draw space ------------------------------------------
@@ -118,7 +121,7 @@ var Chart = React.createClass({
     tmp = ori[0]+interval.x;
     let n = num.x;
     while (tmp<w){
-      this._drawText_x(start.x+n, [tmp,ori[1]]);
+      this._drawText_x(start.x+n, [tmp,ori[1]], borderColor);
       tmp+=interval.x;
       n+=num.x;
     }
@@ -126,7 +129,7 @@ var Chart = React.createClass({
     tmp = ori[1]-interval.y;
     n = num.y;
     while (tmp>0){
-      this._drawText_y(start.y+n, [ori[0],tmp]);
+      this._drawText_y(start.y+n, [ori[0],tmp], borderColor);
       tmp-=interval.y;
       n+=num.y;
     }
@@ -134,19 +137,19 @@ var Chart = React.createClass({
   _getCoordinate: function (pos){
       return [pos[0]+this.state.textSpace,this.state.height-pos[1]-this.state.textSpace];
   },
-  _drawText_x: function (text, pos){
+  _drawText_x: function (text, pos, color){
     let ctx = this.state.ctx
       ;
     ctx.font = "14px Arial";
-    ctx.fillStyle = "#666666";
+    ctx.fillStyle = color;
     ctx.textAlign = "center";
     ctx.fillText(text, pos[0], pos[1]+20);
   },
-  _drawText_y: function (text, pos){
+  _drawText_y: function (text, pos, color){
     let ctx = this.state.ctx
       ;
     ctx.font = "14px Arial";
-    ctx.fillStyle = "#666666";
+    ctx.fillStyle = color;
     ctx.textAlign = "right";
     ctx.fillText(text, pos[0]-10, pos[1]+7);
   },

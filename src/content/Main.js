@@ -1,9 +1,9 @@
 require('./Main.less');
 var React = require('react');
 var ReactDOM = require('react-dom');
-var MathChart = require('./MathChart.js');
+var Panel = require('./Panel.js');
 
 ReactDOM.render(
-  <MathChart/>,
+  <Panel left={300}/>,
   document.body
 );

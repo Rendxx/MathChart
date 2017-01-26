@@ -57,7 +57,7 @@ var setting = {
           'react': pathToReact,
           'react-dom': pathToReactDom,
           'BOWER': root+'/bower_components',
-          'MODULE': root+'/src/js/module'
+          'COMPONENT': root+'/src/component'
         }
     }
 };
