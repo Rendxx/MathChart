@@ -7,7 +7,8 @@ var Chart = React.createClass({
     setOption: function({
         intervalPixel = {},
         intervalNumber = {},
-        start = {}
+        start = {},
+        decimal = undefined,
     }) {
         let _intervalPixel = {
             x: intervalPixel.x || this.state.intervalPixel.x,
@@ -21,10 +22,12 @@ var Chart = React.createClass({
             x: start.x==undefined?this.state.start.x:start.x,
             y: start.y==undefined?this.state.start.y:start.y
         };
+        let _decimal = decimal==undefined?this.state.decimal:decimal;
         this.setState({
             intervalPixel: _intervalPixel,
             intervalNumber: _intervalNumber,
-            start: _start
+            start: _start,
+            decimal: _decimal
         });
     },
     resize: function(w, h) {
@@ -36,6 +39,7 @@ var Chart = React.createClass({
             width: w,
             height: h
         });
+        this._render();
     },
     addFormula: function(f, color) {
         var d = {
@@ -59,6 +63,7 @@ var Chart = React.createClass({
             num = this.state.intervalNumber,
             start = this.state.start,
             textSpace = this.state.textSpace,
+            decimal = this.state.decimal,
             ori = [textSpace, h - textSpace],
             outer = 4,
             borderColor = '#6699dd',
@@ -147,7 +152,7 @@ var Chart = React.createClass({
             tmp = ori[0] + interval.x;
             let n = num.x;
             while (tmp < w) {
-                this._drawText_x(start.x + n, [tmp, ori[1]], borderColor);
+                this._drawText_x((start.x + n).toFixed(decimal), [tmp, ori[1]], borderColor);
                 tmp += interval.x;
                 n += num.x;
             }
@@ -155,7 +160,7 @@ var Chart = React.createClass({
             tmp = ori[1] - interval.y;
             n = num.y;
             while (tmp > 0) {
-                this._drawText_y(start.y + n, [ori[0], tmp], borderColor);
+                this._drawText_y((start.y + n).toFixed(decimal), [ori[0], tmp], borderColor);
                 tmp -= interval.y;
                 n += num.y;
             }
@@ -168,14 +173,14 @@ var Chart = React.createClass({
     },
     _drawText_x: function(text, pos, color) {
         let ctx = this.state.ctx;
-        ctx.font = "14px Arial";
+        ctx.font = "10px Arial";
         ctx.fillStyle = color;
         ctx.textAlign = "center";
         ctx.fillText(text, pos[0], pos[1] + 20);
     },
     _drawText_y: function(text, pos, color) {
         let ctx = this.state.ctx;
-        ctx.font = "14px Arial";
+        ctx.font = "10px Arial";
         ctx.fillStyle = color;
         ctx.textAlign = "right";
         ctx.fillText(text, pos[0] - 10, pos[1] + 7);
@@ -240,6 +245,7 @@ var Chart = React.createClass({
                 y: 0
             },
             textSpace: 40,
+            decimal:2,
             formula: []
         };
     },
