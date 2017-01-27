@@ -30,6 +30,7 @@ var Panel = React.createClass({
   },
   componentDidMount:function(){
       window.add = this.refs.chart.addFormula.bind(this);
+      console.log("[Example]  add('function(x){return x;}','#990000');");
   },
   render:function(){
     return(
