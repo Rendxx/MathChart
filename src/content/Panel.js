@@ -29,10 +29,11 @@ var Panel = React.createClass({
     };
   },
   componentDidMount:function(){
+      window.add = this.refs.chart.addFormula.bind(this);
   },
   render:function(){
     return(
-      <div className="__panelWrap" ref="self">
+      <div className="__panelWrap" ref="container">
           <div className="__panelLeft" ref="left" style={{"width":this.state.left+"px"}}>
               <Component_Input ref="xStart" tag="X Start" left={80} width={260} value="0" customClassName="inputItem" color="#333" valueCheck={this._checkCorValue} onChanged={this._setChartPara.bind(this)}/>
               <Component_Input ref="xInterval" tag="X Interval" left={80} width={260} value="1" customClassName="inputItem" color="#333" valueCheck={this._checkCorValue} onChanged={this._setChartPara.bind(this)}/>
