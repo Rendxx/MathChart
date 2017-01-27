@@ -19,7 +19,8 @@ var Panel = React.createClass({
         , yStart=this.refs.yStart.value()
         , xInterval=this.refs.xInterval.value()
         , yInterval=this.refs.yInterval.value()
-        , decimal=this.refs.decimal.value()
+        , xDecimal=this.refs.xDecimal.value()
+        , yDecimal=this.refs.yDecimal.value()
         , xDis=this.refs.xDis.value()
         , yDis=this.refs.yDis.value()
         ;
@@ -27,7 +28,7 @@ var Panel = React.createClass({
         intervalNumber: {x:Number(xInterval), y:Number(yInterval)},
         intervalPixel: {x:Number(xDis), y:Number(yDis)},
         start: {x:Number(xStart), y:Number(yStart)},
-        decimal: Number(decimal)
+        decimal: {x:Number(xDecimal), y:Number(yDecimal)}
       });
   },
   _checkCorValue: function (v){
@@ -43,7 +44,8 @@ var Panel = React.createClass({
     };
   },
   componentDidMount:function(){
-      window.add = this.refs.chart.addFormula.bind(this);
+      window.add = this.refs.chart.addFormula.bind(this.refs.chart);
+      window.remove = this.refs.chart.removeFormula.bind(this.refs.chart);
       window.addEventListener('resize',this._resize.bind(this));
       setTimeout(this._resize.bind(this),1)
       console.log("[Example]  add('function(x){return x;}','#990000');");
@@ -63,8 +65,9 @@ var Panel = React.createClass({
               <br/>
               <Component_Input ref="yStart" tag="Y Start" left={left} width={w} value="0" customClassName={itemClass} color={color} valueCheck={this._checkCorValue} onChanged={this._setChartPara.bind(this)}/>
               <Component_Input ref="yInterval" tag="Y Interval" left={left} width={w} value="1" customClassName={itemClass} color={color} valueCheck={this._checkCorValue} onChanged={this._setChartPara.bind(this)}/>
-              <br/>
-              <Component_Input ref="decimal" tag="Decimal" left={left} width={w} value="2" customClassName={itemClass} color={color} valueCheck={this._checkInteger} onChanged={this._setChartPara.bind(this)}/>
+              <br/><br/>
+              <Component_Input ref="xDecimal" tag="X Decimal" left={left} width={w} value="2" customClassName={itemClass} color={color2} valueCheck={this._checkInteger} onChanged={this._setChartPara.bind(this)}/>
+              <Component_Input ref="yDecimal" tag="Y Decimal" left={left} width={w} value="2" customClassName={itemClass} color={color2} valueCheck={this._checkInteger} onChanged={this._setChartPara.bind(this)}/>
               <br/>
               <Component_Input ref="xDis" tag="X Ditance" left={left} width={w} value="40" customClassName={itemClass} color={color2} valueCheck={this._checkInteger} onChanged={this._setChartPara.bind(this)}/>
               <Component_Input ref="yDis" tag="Y Ditance" left={left} width={w} value="30" customClassName={itemClass} color={color2} valueCheck={this._checkInteger} onChanged={this._setChartPara.bind(this)}/>

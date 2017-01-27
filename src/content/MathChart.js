@@ -22,7 +22,10 @@ var Chart = React.createClass({
             x: start.x==undefined?this.state.start.x:start.x,
             y: start.y==undefined?this.state.start.y:start.y
         };
-        let _decimal = decimal==undefined?this.state.decimal:decimal;
+        let _decimal = {
+            x: decimal.x==undefined?this.state.decimal.x:decimal.x,
+            y: decimal.y==undefined?this.state.decimal.y:decimal.y
+        };
         this.setState({
             intervalPixel: _intervalPixel,
             intervalNumber: _intervalNumber,
@@ -42,15 +45,23 @@ var Chart = React.createClass({
         this._render();
     },
     addFormula: function(f, color) {
-        var d = {
+        let d = {
             str: f,
             color: color,
             func: null
         };
         eval("d.func=" + f);
 
+        let idx = this.state.formula.length;
         this.state.formula.push(d);
         this._render();
+        return idx;
+    },
+    removeFormula: function(idx){
+        if (idx>=this.state.formula.length) return false;
+        this.state.formula[idx]=null;
+        this._render();
+        return true;
     },
 
     /* Private Method *********************************************************************/
@@ -152,7 +163,7 @@ var Chart = React.createClass({
             tmp = ori[0] + interval.x;
             let n = num.x;
             while (tmp < w) {
-                this._drawText_x((start.x + n).toFixed(decimal), [tmp, ori[1]], borderColor);
+                this._drawText_x((start.x + n).toFixed(decimal.x), [tmp, ori[1]], borderColor);
                 tmp += interval.x;
                 n += num.x;
             }
@@ -160,7 +171,7 @@ var Chart = React.createClass({
             tmp = ori[1] - interval.y;
             n = num.y;
             while (tmp > 0) {
-                this._drawText_y((start.y + n).toFixed(decimal), [ori[0], tmp], borderColor);
+                this._drawText_y((start.y + n).toFixed(decimal.y), [ori[0], tmp], borderColor);
                 tmp -= interval.y;
                 n += num.y;
             }
@@ -209,6 +220,7 @@ var Chart = React.createClass({
         }.bind(this);
 
         for (var i = 0; i < this.state.formula.length; i++) {
+            if (this.state.formula[i]==null) continue;
             run(i, this.state.formula[i]);
         }
     },
@@ -245,7 +257,10 @@ var Chart = React.createClass({
                 y: 0
             },
             textSpace: 40,
-            decimal:2,
+            decimal:{
+                x: 2,
+                y: 2
+            },
             formula: []
         };
     },
